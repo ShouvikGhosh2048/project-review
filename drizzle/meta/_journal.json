@@ -8,6 +8,34 @@
       "when": 1724089346264,
       "tag": "0000_parallel_night_thrasher",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1724327987642,
+      "tag": "0001_odd_sersi",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1724329328128,
+      "tag": "0002_magenta_the_phantom",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1724329913684,
+      "tag": "0003_open_marauders",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1724395401881,
+      "tag": "0004_dear_siren",
+      "breakpoints": true
     }
   ]
 }

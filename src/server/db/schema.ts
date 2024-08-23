@@ -6,6 +6,7 @@ import {
   primaryKey,
   text,
   timestamp,
+  unique,
   varchar,
 } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
@@ -34,6 +35,42 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+}));
+
+export const projects = createTable("project", {
+  id: varchar("id", { length: 50 })
+  .notNull()
+  .primaryKey()
+  .$defaultFn(() => crypto.randomUUID()),
+  repository: varchar("repository", { length: 255 }).notNull(),
+  userId: varchar("user_id", { length: 255 })
+    .notNull()
+    .references(() => users.id),
+}, (project) => ({
+  unique_repo_and_user: unique('repo_and_user').on(project.repository, project.userId)
+}));
+
+export const projectsRelations = relations(projects, ({ many }) => ({
+  reviews: many(reviews),
+}));
+
+export const reviews = createTable("review", {
+  id: varchar("id", { length: 50 })
+  .notNull()
+  .primaryKey()
+  .$defaultFn(() => crypto.randomUUID()),
+  projectId: varchar("project_id", { length: 50 })
+    .notNull()
+    .references(() => projects.id),
+  text: text("text").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  project: one(projects, {
+    fields: [reviews.projectId],
+    references: [projects.id],
+  }),
 }));
 
 export const accounts = createTable(

@@ -1,0 +1,1 @@
+ALTER TABLE "project-review_project" ADD COLUMN "id" varchar(30) PRIMARY KEY NOT NULL;

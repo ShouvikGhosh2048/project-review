@@ -1,0 +1,1 @@
+ALTER TABLE "project-review_project" ALTER COLUMN "id" SET DATA TYPE varchar(50);
