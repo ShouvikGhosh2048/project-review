@@ -36,7 +36,7 @@ export default async function NewProject() {
         })).data
     );
     const repos = githubReposSchema.parse(
-        (await octokit.request('GET /users/{username}/repos?sort=created&per_page=10', {
+        (await octokit.request('GET /users/{username}/repos?sort=created&per_page=7', {
             username: githubUser.login,
             headers: {
               'X-GitHub-Api-Version': '2022-11-28'
@@ -51,9 +51,7 @@ export default async function NewProject() {
             <NewProjectForm/>
             <Stack gap="sm">
                 <Title order={2}>Your recent repositories</Title>
-                <div>
-                    {repoNames.map((name, i) => <Text key={i}>{name}</Text>)}
-                </div>
+                {repoNames.map((name, i) => <Text key={i}>{name}</Text>)}
             </Stack>
         </Stack>
     )

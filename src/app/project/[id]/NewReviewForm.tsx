@@ -1,11 +1,12 @@
 "use client"
 
-import { Button, Stack, Textarea } from "@mantine/core";
+import { Stack, Textarea } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
+import FormSubmitButton from "~/app/FormSubmitButton";
 
 export default function NewReviewForm(props: {
-    // TODO: Improve the type.
+    // TODO: Improve the type. Rename review to reviewId.
     action: (prevState: { error?: string, review?: string }, formData: FormData) => Promise<{ error?: string, review?: string }>
 }) {
     const [state, formAction] = useFormState(props.action, { review: "" });
@@ -21,8 +22,8 @@ export default function NewReviewForm(props: {
             <Stack align="end">
                 {state.error && <p style={{ "width": "100%", margin: "0" }}>{state.error}</p>}
                 <Textarea rows={5} placeholder="Review" name="review"
-                    value={review} onChange={(e) => { setReview(e.target.value); }} w="100%" />
-                <Button type="submit">Create review</Button>
+                    value={review} onChange={(e) => { setReview(e.target.value); }} w="100%" required/>
+                <FormSubmitButton text="Create review"/>
             </Stack>
         </form>
     );

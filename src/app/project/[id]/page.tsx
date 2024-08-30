@@ -38,11 +38,11 @@ export default async function Project({ params }: {
     return (
         <main>
             <Stack>
-                <Title>{project.repository}</Title>
+                <Title style={{ "wordBreak": "break-all" }}>{project.repository}</Title>
                 <NewReviewForm action={formAction}/>
                 <Title order={2}>Reviews:</Title>
                 {project.reviews.map((review, i) => (
-                    <p key={i}>{review.text}</p>
+                    <p key={i} style={{ "wordBreak": "break-all", "margin": "0" }}>{review.text}</p>
                 ))}
             </Stack>
         </main>

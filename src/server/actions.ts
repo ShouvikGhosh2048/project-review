@@ -10,7 +10,7 @@ import { revalidatePath } from "next/cache";
 import { eq } from "drizzle-orm";
 
 const projectSchema = z.object({
-    repository: z.string()
+    repository: z.string().min(1),
 });
 
 export async function createProject(prevState: string, formData: FormData) {
@@ -68,7 +68,7 @@ export async function createProject(prevState: string, formData: FormData) {
 }
 
 const reviewSchema = z.object({
-    review: z.string(),
+    review: z.string().min(1),
 });
 
 export async function createReview(projectId: string, prevState: { error?: string, review?: string }, formData: FormData) {

@@ -3,10 +3,11 @@ import "@mantine/core/styles.css";
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
-import { Avatar, Button, ColorSchemeScript, Flex, MantineProvider, Text } from "@mantine/core";
+import { ColorSchemeScript, Flex, MantineProvider, Text } from "@mantine/core";
 import { getServerAuthSession } from "~/server/auth";
 import Link from "next/link";
-import { SignIn, SignOut } from "./SignInButtons";
+import { SignIn } from "./SignInButtons";
+import AccountPopover from "./AccountPopover";
 
 export const metadata: Metadata = {
   title: "Project Review",
@@ -35,11 +36,7 @@ export default async function RootLayout({
             <Link href="/"><Text size="xl" fw={500}>Project Review</Text></Link>
             {session && (
               <Flex align="center" gap="sm">
-                <Avatar src={session.user.image} alt="User image" />
-                <Link href="/project/new">
-                  <Button variant="default">New project</Button>
-                </Link>
-                <SignOut />
+                <AccountPopover image={session.user.image ?? undefined}/>
               </Flex>
             )}
             {!session && <SignIn />}
