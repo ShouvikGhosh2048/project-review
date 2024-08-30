@@ -21,7 +21,7 @@ export default function NewReviewForm(props: {
         <form action={formAction}>
             <Stack align="end">
                 {state.error && <p style={{ "width": "100%", margin: "0" }}>{state.error}</p>}
-                <Textarea rows={5} placeholder="Review" name="review"
+                <Textarea rows={5} placeholder="Review" name="review" size="md"
                     value={review} onChange={(e) => { setReview(e.target.value); }} w="100%" required/>
                 <FormSubmitButton text="Create review"/>
             </Stack>

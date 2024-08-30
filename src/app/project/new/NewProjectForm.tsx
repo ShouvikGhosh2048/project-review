@@ -1,6 +1,6 @@
 "use client"
 
-import { Flex, TextInput } from "@mantine/core";
+import { Flex, Stack, TextInput } from "@mantine/core";
 import { useFormState } from "react-dom";
 import FormSubmitButton from "~/app/FormSubmitButton";
 import { createProject } from "~/server/actions";
@@ -10,11 +10,13 @@ export default function NewProjectForm() {
 
     return (
         <form action={formAction}>
-            <Flex gap="sm" align="center">
-                <TextInput placeholder="Username/Repository" name="repository" required/>
-                <FormSubmitButton text="Create"/>
+            <Stack>
                 {error && <span>{error}</span>}
-            </Flex>
+                <Flex gap="sm" align="stretch">
+                    <TextInput placeholder="Username/Repository" name="repository" size="md" required/>
+                    <FormSubmitButton text="Create"/>
+                </Flex>
+            </Stack>
         </form>
     );
 }
