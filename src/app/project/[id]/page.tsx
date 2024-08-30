@@ -1,4 +1,4 @@
-import { Stack, Title } from "@mantine/core";
+import { Card, Stack, Text, Title } from "@mantine/core";
 import { and, desc, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { getServerAuthSession } from "~/server/auth";
@@ -42,7 +42,12 @@ export default async function Project({ params }: {
                 <NewReviewForm action={formAction}/>
                 <Title order={2}>Reviews:</Title>
                 {project.reviews.map((review, i) => (
-                    <p key={i} style={{ "wordBreak": "break-all", "margin": "0" }}>{review.text}</p>
+                    <Card key={i} withBorder>
+                        <Stack key={i} gap="0">
+                            <Text style={{ "wordBreak": "break-all" }}>{review.text}</Text>
+                            <Text style={{ "textAlign": "right"}}>{ review.createdAt.toLocaleDateString() }</Text>
+                        </Stack>
+                    </Card>
                 ))}
             </Stack>
         </main>
