@@ -1,6 +1,6 @@
 "use client"
 
-import { Stack, Textarea } from "@mantine/core";
+import { Alert, Stack, Textarea } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
 import FormSubmitButton from "~/app/FormSubmitButton";
@@ -20,7 +20,7 @@ export default function NewReviewForm(props: {
     return (
         <form action={formAction}>
             <Stack align="end">
-                {state.error && <p style={{ "width": "100%", margin: "0" }}>{state.error}</p>}
+                {state.error && <Alert variant="light" color="red" title="Error" w="100%">{state.error}</Alert>}
                 <Textarea rows={5} placeholder="Review" name="review" size="md"
                     value={review} onChange={(e) => { setReview(e.target.value); }} w="100%" required/>
                 <FormSubmitButton text="Create review"/>
