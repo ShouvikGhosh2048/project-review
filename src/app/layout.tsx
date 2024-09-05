@@ -1,5 +1,6 @@
 import "~/styles/globals.css";
 import "@mantine/core/styles.css";
+import '@mantine/nprogress/styles.css';
 
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
@@ -8,6 +9,7 @@ import { getServerAuthSession } from "~/server/auth";
 import Link from "next/link";
 import { SignIn } from "./SignInButtons";
 import AccountPopover from "./AccountPopover";
+import { NavigationProgress } from "@mantine/nprogress";
 
 export const metadata: Metadata = {
   title: "Project Review",
@@ -32,6 +34,7 @@ export default async function RootLayout({
           'maxWidth': '1000px',
         }}>
         <MantineProvider>
+          <NavigationProgress/>
           <Flex component="nav" justify="space-between" align="center" h="40px" mb="sm">
             <Link href="/"><Text size="xl" fw={500}>Project Review</Text></Link>
             {session && (
