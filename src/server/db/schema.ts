@@ -35,6 +35,7 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  projects: many(projects),
 }));
 
 export const projects = createTable("project", {
@@ -50,8 +51,12 @@ export const projects = createTable("project", {
   unique_repo_and_user: unique('repo_and_user').on(project.repository, project.userId)
 }));
 
-export const projectsRelations = relations(projects, ({ many }) => ({
+export const projectsRelations = relations(projects, ({ one, many }) => ({
   reviews: many(reviews),
+  user: one(users, {
+    fields: [projects.userId],
+    references: [users.id],
+  }),
 }));
 
 export const reviews = createTable("review", {
