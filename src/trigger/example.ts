@@ -12,7 +12,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const checkRepos = schedules.task({
   id: "check-repos",
-  cron: "0 6 * * 0",
+  cron: "0 6 * * *",
   run: async (payload) => {
     const projects = await db.query.projects.findMany({
       columns: {
