@@ -13,13 +13,15 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "trigger:deploy": "npx trigger.dev@3.0.0-beta.56 deploy",
-    "trigger:dev": "npx trigger.dev@3.0.0-beta.56 dev"
+    "trigger:dev": "npx trigger.dev@3.0.0-beta.56 dev",
+    "email:dev": "email dev"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
     "@mantine/core": "^7.12.1",
     "@mantine/hooks": "^7.12.1",
     "@mantine/nprogress": "^7.12.2",
+    "@react-email/components": "0.0.25",
     "@t3-oss/env-nextjs": "^0.10.1",
     "@trigger.dev/sdk": "3.0.0-beta.56",
     "drizzle-orm": "^0.33.0",
@@ -47,6 +49,7 @@
     "postcss": "^8.4.41",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
+    "react-email": "3.0.1",
     "typescript": "^5.5.3"
   },
   "ct3aMetadata": {

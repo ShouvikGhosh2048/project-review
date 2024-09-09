@@ -4,6 +4,8 @@ import postgres from "postgres";
 import * as schema from "../server/db/schema";
 import { Octokit } from "octokit";
 import { Resend } from "resend";
+import ReviewReminder from "../../emails/reviewReminder";
+import * as React from "react";
 
 const octokit = new Octokit({ auth: process.env.OCTOKIT_TOKEN });
 const conn = postgres(process.env.DATABASE_URL!);
@@ -17,6 +19,7 @@ export const checkRepos = schedules.task({
     const projects = await db.query.projects.findMany({
       columns: {
         repository: true,
+        id: true,
       },
       with: {
         user: {
@@ -37,7 +40,7 @@ export const checkRepos = schedules.task({
       }
     });
 
-    const emails: { from: string, to: string[], subject: string, html: string }[] = [];
+    const emails: { from: string, to: string[], subject: string, react: JSX.Element }[] = [];
     await Promise.all([...repositoryToProjects.entries()].map(async ([repository, projects]) => {
       try {
         const [owner, repo] = repository.split("/");
@@ -63,7 +66,9 @@ export const checkRepos = schedules.task({
               from: 'Shouvik <shouvik@resend.dev>',
               to: [project.user.email],
               subject: `Review reminder for ${repository}`,
-              html: `It's been ${today - lastUpdatedDay} days since ${repository} has been updated. Time for review?`,
+              react: <ReviewReminder repository={repository} 
+                        daysSinceLastUpdate={today - lastUpdatedDay}
+                        projectId={project.id}/>,
             });
           });
         }
@@ -71,7 +76,9 @@ export const checkRepos = schedules.task({
     }));
 
     for (const email of emails) {
-      await resend.emails.send(email);
+      try {
+        await resend.emails.send(email);
+      } catch {}
     }
   },
 });
