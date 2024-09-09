@@ -11,7 +11,9 @@
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "trigger:deploy": "npx trigger.dev@3.0.0-beta.56 deploy",
+    "trigger:dev": "npx trigger.dev@3.0.0-beta.56 dev"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
