@@ -76,9 +76,7 @@ export const checkRepos = schedules.task({
     }));
 
     for (const email of emails) {
-      try {
-        await resend.emails.send(email);
-      } catch {}
+      await resend.emails.send(email);
     }
   },
 });
