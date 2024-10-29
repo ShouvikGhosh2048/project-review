@@ -142,7 +142,7 @@ export const addNewRepos = schedules.task({
           }
         });
         const githubRepos = ((await octokit.request('GET /users/{username}/repos', {
-          username: userDetails.data.login,
+          username: (userDetails.data as { login: string}).login,
           headers: {
             'X-GitHub-Api-Version': '2022-11-28'
           },
@@ -162,7 +162,7 @@ export const addNewRepos = schedules.task({
             });
           }
         });
-      } catch (err) {}
+      } catch {}
     }));
 
     await db.insert(schema.projects).values(newProjects).onConflictDoNothing();
