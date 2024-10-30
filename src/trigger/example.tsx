@@ -102,7 +102,7 @@ export const addNewRepos = schedules.task({
       db.query.users.findMany({
         columns: {
           id: true,
-          
+          createdAt: true,
         },
         with: {
           accounts: {
@@ -149,13 +149,12 @@ export const addNewRepos = schedules.task({
           sort: 'created',
         })).data as { full_name: string, created_at: string }[]).map(repo => ({ name: repo.full_name, createdAt: new Date(repo.created_at) }));
         // TODO: Technically you should fetch more repos, since this is only the first page.
-        // TODO: Maybe check that we don't add repos which were created before the user joined.
 
         const MILLISECONDS_IN_A_DAY = 24 * 60 * 60 * 1000;
         githubRepos.forEach(repo => {
           const created = Math.floor(repo.createdAt.valueOf() / MILLISECONDS_IN_A_DAY);
           const today = Math.floor(payload.timestamp.valueOf() / MILLISECONDS_IN_A_DAY);
-          if (today - created <= 1 && !projects.has(repo.name)) {
+          if (today - created <= 1 && !projects.has(repo.name) && repo.createdAt.valueOf() >= user.createdAt.valueOf()) {
             newProjects.push({
               userId: user.id,
               repository: repo.name,

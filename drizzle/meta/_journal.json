@@ -36,6 +36,13 @@
       "when": 1724395401881,
       "tag": "0004_dear_siren",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1730261650453,
+      "tag": "0005_hot_crystal",
+      "breakpoints": true
     }
   ]
 }
